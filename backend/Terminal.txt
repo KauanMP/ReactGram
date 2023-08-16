@@ -1,0 +1,11 @@
+yarn add 
+bcryptjs -- biblioteca para manipular melhor senhas em autenticação
+cors -- Habilitar as requisições da mesma origem
+dotenv -- Armazena variaveis de ambiente ex: dominio do banco de dados
+express -- framework para criar a API
+express-validator -- Ajuda a validar os dados
+jsonwebtoken -- Gera e verifica o token do usuário
+mongoose -- Ferramenta para trabalhar com o banco de dados não relacional mongoDB
+multer -- Pacote usado para trabalhar com pacote de dados
+
+yarn add nodemon --dev -- Simula um servidor pro backend 
