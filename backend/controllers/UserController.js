@@ -7,13 +7,9 @@ const jwtSecret = process.env.SECRET_TOKEN;
 
 // Generate user token
 const generateToken = (id) => {
-  return (
-    jwt.sign({ id }),
-    jwtSecret,
-    {
-      expiresIn: "7d",
-    }
-  );
+  return jwt.sign({ id }, jwtSecret, {
+    expiresIn: "7d",
+  });
 };
 
 // Register user and sign in
