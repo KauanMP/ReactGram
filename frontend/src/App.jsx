@@ -7,8 +7,11 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { auth, loading } = useAuth();
+  
   return (
     <div className="App">
       <BrowserRouter>
