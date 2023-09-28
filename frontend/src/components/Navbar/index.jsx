@@ -1,29 +1,24 @@
-import "./index.css";
-
-// Components
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   BsSearch,
-  BsHouseDoorFill,
+  BsHouseFill,
+  BsCameraFill,
   BsFillPersonFill,
+  BsHouseDoorFill,
   BsFillCameraFill,
 } from "react-icons/bs";
+import "./index.css";
 
-// Hooks
-import { useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "./../../hooks/useAuth";
+import { logout, reset } from "./../../slices/authSlice";
 
-// Redux
-import { logout, reset } from "../../slices/authSlice";
-
-const Navbar = () => {
+const NavBar = () => {
   const { auth } = useAuth();
   const { user } = useSelector((state) => state.auth);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -35,10 +30,12 @@ const Navbar = () => {
   return (
     <nav id="nav">
       <Link to="/">ReactGram</Link>
-      <form>
+
+      <form id="search-form">
         <BsSearch />
-        <input type="text" placeholder="pesquisar" />
+        <input type="text" placeholder="Pesquisar" />
       </form>
+
       <ul id="nav-links">
         {auth ? (
           <>
@@ -65,6 +62,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            {" "}
             <li>
               <NavLink to="/login">Entrar</NavLink>
             </li>
@@ -78,4 +76,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
