@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userServices from "../services/userServices";
-import { build } from "vite";
 
 const initialState = {
   user: {},
