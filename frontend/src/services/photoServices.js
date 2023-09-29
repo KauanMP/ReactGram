@@ -15,8 +15,8 @@ const publisherPhoto = async (data, token) => {
   }
 };
 
-const photoService = {
+const photoServices = {
   publisherPhoto,
 };
 
-export default photoService;
+export default photoServices;

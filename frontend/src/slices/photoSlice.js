@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import photoServices from "./../services/photoServices";
 
 const initialState = {
   photos: [],
@@ -10,6 +11,21 @@ const initialState = {
 };
 
 // Funções
+export const publisherPhoto = createAsyncThunk(
+  "photo/publish",
+  async (photo, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoServices.publisherPhoto(photo, token);
+
+    // Check for errors
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+
+    return data;
+  }
+);
 
 export const photoSlice = createSlice({
   name: "photo",
@@ -18,6 +34,26 @@ export const photoSlice = createSlice({
     resetMessage: (state) => {
       state.message = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(publisherPhoto.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(publisherPhoto.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.user = action.payload;
+        state.photos.unshift(state.photo);
+        state.message = "Foto publicada com sucesso!";
+      })
+      .addCase(publisherPhoto.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.photo = {};
+      });
   },
 });
 
