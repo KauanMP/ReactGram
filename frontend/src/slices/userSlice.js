@@ -63,7 +63,7 @@ export const userSlice = createSlice({
       })
       .addCase(profile.fulfilled, (state, action) => {
         state.loading = false;
-        state.sucess = true;
+        state.success = true;
         state.error = null;
         state.user = action.payload;
       })
@@ -73,7 +73,7 @@ export const userSlice = createSlice({
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.sucess = true;
+        state.success = true;
         state.error = null;
         state.user = action.payload;
         state.message = "Usuário atualizado com sucesso!";
@@ -90,10 +90,10 @@ export const userSlice = createSlice({
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.sucess = true;
+        state.success = true;
         state.error = null;
         state.user = action.payload;
-      })
+      });
   },
 });
 
