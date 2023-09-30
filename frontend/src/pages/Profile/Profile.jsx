@@ -138,7 +138,13 @@ const Profile = () => {
                     </>
                   )}
                   {id === userAuth._id ? (
-                    <p>actions</p>
+                    <div className="actions">
+                      <Link to={`/photos/${photo._id}`}>
+                        <BsFillEyeFill />
+                      </Link>
+                      <BsPencilFill />
+                      {/* <BsXLg onClick={() => handleDelete(photo._id)} /> */}
+                    </div>
                   ) : (
                     <Link className="btn" to={`/photos/${photo._id}`}>
                       Ver
