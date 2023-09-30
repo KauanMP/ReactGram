@@ -14,7 +14,11 @@ import { useParams } from "react-router-dom";
 import { getUserDetails } from "./../../slices/userSlice";
 
 // Redux
-import { publishPhoto, resetMessage } from "../../slices/photoSlice";
+import {
+  getUserPhotos,
+  publishPhoto,
+  resetMessage,
+} from "../../slices/photoSlice";
 
 const Profile = () => {
   const { id } = useParams();
@@ -40,6 +44,7 @@ const Profile = () => {
   // Load user data
   useEffect(() => {
     dispatch(getUserDetails(id));
+    dispatch(getUserPhotos(id));
   }, [dispatch, id]);
 
   const handleFile = (e) => {
@@ -116,6 +121,35 @@ const Profile = () => {
           {messagePhoto && <Message msg={messagePhoto} type="success" />}
         </>
       )}
+      {
+        <div className="user-photos">
+          <h2>Fotos publicadas:</h2>
+          <div className="photos-container">
+            {photos &&
+              photos.map((photo) => (
+                <div className="photo" key={photo._id}>
+                  {photo.image && (
+                    <>
+                      <p>{photo.title}</p>
+                      <img
+                        src={`${uploads}/photos/${photo.image}`}
+                        alt={photo.title}
+                      />
+                    </>
+                  )}
+                  {id === userAuth._id ? (
+                    <p>actions</p>
+                  ) : (
+                    <Link className="btn" to={`/photos/${photo._id}`}>
+                      Ver
+                    </Link>
+                  )}
+                </div>
+              ))}
+            {photos.length === 0 && <p>Ainda não à fotos publicadas</p>}
+          </div>
+        </div>
+      }
     </div>
   );
 };

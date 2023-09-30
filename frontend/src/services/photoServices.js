@@ -5,7 +5,7 @@ const publishPhoto = async (data, token) => {
   const config = requestConfig("POST", data, token, true);
 
   try {
-    const res = await fetch(`${api}/photos/`, config)
+    const res = await fetch(`${api}/photos`, config)
       .then((res) => res.json())
       .catch((err) => err);
 
@@ -15,11 +15,11 @@ const publishPhoto = async (data, token) => {
   }
 };
 
-const getUserPhoto = async (id, token) => {
+const getUserPhotos = async (id, token) => {
   const config = requestConfig("GET", null, token);
 
   try {
-    const res = await fetch(`${api}/photos/${id}`, config)
+    const res = await fetch(`${api}/photos/user/${id}`, config)
       .then((res) => res.json())
       .catch((err) => err);
 
@@ -31,7 +31,7 @@ const getUserPhoto = async (id, token) => {
 
 const photoServices = {
   publishPhoto,
-  getUserPhoto,
+  getUserPhotos,
 };
 
 export default photoServices;
