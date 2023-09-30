@@ -15,6 +15,7 @@ import { getUserDetails } from "./../../slices/userSlice";
 
 // Redux
 import {
+  deletePhoto,
   getUserPhotos,
   publishPhoto,
   resetMessage,
@@ -54,6 +55,12 @@ const Profile = () => {
     setImage(image);
   };
 
+  const resetComponentMessage = () => {
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
+  };
+
   const submitHandle = (e) => {
     e.preventDefault();
 
@@ -75,9 +82,13 @@ const Profile = () => {
 
     setTitle("");
 
-    setTimeout(() => {
-      dispatch(resetMessage());
-    }, 2000);
+    resetComponentMessage();
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deletePhoto(id));
+
+    resetComponentMessage();
   };
 
   if (loading) {
@@ -143,7 +154,7 @@ const Profile = () => {
                         <BsFillEyeFill />
                       </Link>
                       <BsPencilFill />
-                      {/* <BsXLg onClick={() => handleDelete(photo._id)} /> */}
+                      <BsXLg onClick={() => handleDelete(photo._id)} />
                     </div>
                   ) : (
                     <Link className="btn" to={`/photos/${photo._id}`}>
