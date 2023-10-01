@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import { useAuth } from "./hooks/useAuth";
 import EditProfile from "./pages/EditProfille/EditProfile";
 import Profile from "./pages/Profile/Profile";
+import Photo from "./pages/Photo/Photo";
 
 function App() {
   const { auth, loading } = useAuth();
@@ -43,6 +44,10 @@ function App() {
             <Route
               path="/register"
               element={!auth ? <Register /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/photos/:id"
+              element={auth ? <Photo /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>
