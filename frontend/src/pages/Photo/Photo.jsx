@@ -1,24 +1,49 @@
-import "./Photo.css"
+import "./Photo.css";
 
-import { uploads } from "../../utils/config"
+import { uploads } from "../../utils/config";
 
 // Components
-import Message from "../../components/Message"
-import { Link } from "react-router-dom"
+import Message from "../../components/Message";
+import { Link } from "react-router-dom";
 
 // Hooks
-import { useEffect, useState } from "react"
-import { UseSelector, useDispatch } from "react-redux/es/hooks/useSelector" 
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
 
+import { useParams } from "react-router-dom";
+import { getPhoto } from "../../slices/photoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import PhotoItem from "../../components/PhotoItem";
 
 // Redux
 
-
 const Photo = () => {
-  return (
-    <div>Photo</div>
-  )
-}
+  const { id } = useParams();
 
-export default Photo
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
+  const { photo, loading, error, message } = useSelector(
+    (state) => state.photo
+  );
+
+  // Comentários
+
+  // Load photo data
+  useEffect(() => {
+    dispatch(getPhoto(id));
+  }, [dispatch, id]);
+
+  // Like e comentário
+
+  if (loading) {
+    <p>Carregando...</p>;
+  }
+
+  return (
+    <div id="photo">
+      <PhotoItem photo={photo} />
+    </div>
+  );
+};
+
+export default Photo;
