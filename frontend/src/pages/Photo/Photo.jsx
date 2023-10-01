@@ -10,9 +10,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { getPhoto } from "../../slices/photoSlice";
+import { getPhoto, like } from "../../slices/photoSlice";
 import { useDispatch, useSelector } from "react-redux";
 import PhotoItem from "../../components/PhotoItem";
+import LikeContainer from "../../components/LikeContainer";
 
 // Redux
 
@@ -33,7 +34,9 @@ const Photo = () => {
     dispatch(getPhoto(id));
   }, [dispatch, id]);
 
-  // Like e comentário
+  const handleLike = () => {
+    dispatch(like(photo._id))
+  };
 
   if (loading) {
     <p>Carregando...</p>;
@@ -42,6 +45,7 @@ const Photo = () => {
   return (
     <div id="photo">
       <PhotoItem photo={photo} />
+      <LikeContainer photo={photo} user={user} handleLike={handleLike} />
     </div>
   );
 };
