@@ -97,7 +97,7 @@ export const like = createAsyncThunk("photo/like", async (id, thunkAPI) => {
 });
 
 export const photoSlice = createSlice({
-  name: "photo",
+  name: "publish",
   initialState,
   reducers: {
     resetMessage: (state) => {
@@ -108,24 +108,24 @@ export const photoSlice = createSlice({
     builder
       .addCase(publishPhoto.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(publishPhoto.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
         state.error = null;
-        state.user = action.payload;
+        state.photo = action.payload;
         state.photos.unshift(state.photo);
         state.message = "Foto publicada com sucesso!";
       })
       .addCase(publishPhoto.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.photo = {};
+        state.photo = null;
       })
       .addCase(getUserPhotos.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(getUserPhotos.fulfilled, (state, action) => {
         state.loading = false;
@@ -135,7 +135,7 @@ export const photoSlice = createSlice({
       })
       .addCase(deletePhoto.pending, (state) => {
         state.loading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(deletePhoto.fulfilled, (state, action) => {
         state.loading = false;
@@ -149,7 +149,7 @@ export const photoSlice = createSlice({
       .addCase(deletePhoto.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.photo = {};
+        state.photo = null;
       })
       .addCase(updatePhoto.pending, (state) => {
         state.loading = true;
@@ -163,13 +163,14 @@ export const photoSlice = createSlice({
           if (photo._id === action.payload.photo._id) {
             return (photo.title = action.payload.photo.title);
           }
+          return photo;
         });
         state.message = action.payload.message;
       })
       .addCase(updatePhoto.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.photo = {};
+        state.photo = null;
       })
       .addCase(getPhoto.pending, (state) => {
         state.loading = true;
@@ -190,16 +191,16 @@ export const photoSlice = createSlice({
         }
 
         state.photos.map((photo) => {
-          if (photo._id === action.payload.photo.photo.id) {
+          if (photo._id === action.payload.photoId) {
             return photo.likes.push(action.payload.userId);
           }
+          return photo;
         });
         state.message = action.payload.message;
       })
       .addCase(like.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.photo = {};
       });
   },
 });

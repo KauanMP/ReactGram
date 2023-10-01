@@ -35,7 +35,7 @@ const Photo = () => {
   }, [dispatch, id]);
 
   const handleLike = () => {
-    dispatch(like(photo._id))
+    dispatch(like(photo._id));
   };
 
   if (loading) {
@@ -46,6 +46,10 @@ const Photo = () => {
     <div id="photo">
       <PhotoItem photo={photo} />
       <LikeContainer photo={photo} user={user} handleLike={handleLike} />
+      <div className="message-container">
+        {error && <Message msg={error} type="error" />}
+        {message && <Message msg={message} type="error" />}
+      </div>
     </div>
   );
 };
