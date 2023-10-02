@@ -76,11 +76,11 @@ const Photo = () => {
       <div className="comments">
         {photo.comments && (
           <>
-            <h3>Comentários: ({photo.comments.length})</h3>
+            <h3>Comentários ({photo.comments.length}):</h3>
             <form onSubmit={handleComment}>
               <input
                 type="text"
-                placeholder="Insira o seu comentário..."
+                placeholder="Insira seu comentário..."
                 onChange={(e) => setCommentText(e.target.value)}
                 value={commentText || ""}
               />
@@ -96,7 +96,8 @@ const Photo = () => {
                       alt={comment.userName}
                     />
                   )}
-                  <Link to={`${uploads}/${comment.userId}`}>
+                  {console.log(comment.userImage)}
+                  <Link to={`/users/${comment.userId}`}>
                     <p>{comment.userName}</p>
                   </Link>
                 </div>
