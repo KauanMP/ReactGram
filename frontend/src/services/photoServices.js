@@ -119,7 +119,7 @@ const getPhotos = async (token) => {
 };
 
 // Search photo by title
-const search = async (query, token) => {
+const searchPhotos = async (query, token) => {
   const config = requestConfig("GET", null, token);
 
   try {
@@ -142,7 +142,7 @@ const photoServices = {
   like,
   comment,
   getPhotos,
-  search,
+  searchPhotos,
 };
 
 export default photoServices;
