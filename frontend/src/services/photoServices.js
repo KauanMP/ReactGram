@@ -110,6 +110,7 @@ const photoServices = {
   updatePhoto,
   getPhoto,
   like,
+  comment,
 };
 
 export default photoServices;
